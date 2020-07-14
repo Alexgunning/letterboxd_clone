@@ -3,26 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "^12.16.1",
-    "npm": "^6.13.4"
-  },
   "scripts": {
-    "build": "tsc -p .",
-    "rebuild": "yarn clean && yarn build",
-    "clean": "rimraf build/ coverage/ artifacts/ .nyc_output/ mocha.json clover.xml",
-    "tsv": "tsc -v",
-    "start": "node build/main.js",
-    "dev": "yarn build && yarn start",
-    "reload": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/main.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "graphql": "^15.3.0",
-    "nexus": "^0.25.0",
-    "rimraf": "^3.0.2",
-    "tslint": "^6.1.2",
+  "devDependencies": {
+    "@prisma/cli": "^2.2.1",
+    "@types/node": "^14.0.23",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.2.1"
   }
 }
