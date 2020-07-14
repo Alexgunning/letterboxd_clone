@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "diagnostics": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "es6",
+      "esnext.asynciterable"
+    ]
+  },
+  "plugins": [
+    {
+      "name": "typescript-tslint-plugin",
+      "alwaysShowRuleFailuresAsWarnings": false,
+      "suppressWhileTypeErrorsPresent": false,
+      "mockTypeScriptVersion": false
+    }
+  ],
+  "exclude": [
+    "build",
+    "node_modules"
+  ]
+}

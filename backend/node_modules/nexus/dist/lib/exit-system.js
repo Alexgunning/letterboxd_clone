@@ -1,0 +1,70 @@
+"use strict";
+/**
+ * This module provides a node process exit system wherein any part of the
+ * program can reliably hook onto program exit and run some cleanup which will
+ * be await upon up to a given grace period.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.exit = exports.install = void 0;
+const tslib_1 = require("tslib");
+const lo = tslib_1.__importStar(require("lodash"));
+const nexus_logger_1 = require("./nexus-logger");
+/**
+ * Module state to track if install has been called before calls to exit take place.
+ */
+let installed = false;
+/**
+ * Augment the global process object with a `onBeforeExit` registrater function
+ * and register exit callbacks on SIGTERM and SIGINT.
+ * @param options
+ */
+function install(options) {
+    installed = true;
+    process.once('SIGTERM', () => exit(0));
+    process.once('SIGINT', () => exit(0));
+    process._exitSystem = {
+        beforeExiters: [],
+        isExiting: false,
+        settings: lo.merge({}, { timeLimit: 2000 }, options),
+    };
+    process.onBeforeExit = (cb) => {
+        process._exitSystem.beforeExiters.push(cb);
+    };
+}
+exports.install = install;
+/**
+ * Begin program exit, calling all regisered before-exit functions before
+ * finally doing so. This can only be called once within a process's life.
+ * Subsequent calls are a no-op.
+ */
+async function exit(exitCode) {
+    if (!installed) {
+        throw new Error('ExitSystem exit called but it has not been installed.');
+    }
+    nexus_logger_1.log.trace('exiting', {
+        beforeExitersCount: process._exitSystem.beforeExiters.length,
+    });
+    if (process._exitSystem.isExiting)
+        return;
+    process._exitSystem.isExiting = true;
+    try {
+        await Promise.race([
+            new Promise((res) => {
+                // todo send SIGKILL to process tree...
+                setTimeout(() => {
+                    nexus_logger_1.log.warn('time expired before all before-exit teardowns completed');
+                    res();
+                }, process._exitSystem.settings.timeLimit);
+            }),
+            Promise.all(process._exitSystem.beforeExiters.map((f) => f())),
+        ]);
+    }
+    catch (e) {
+        console.error(e);
+        // If exiting with an already already, preserve that
+        process.exit(exitCode > 0 ? exitCode : 1);
+    }
+    process.exit(exitCode);
+}
+exports.exit = exit;
+//# sourceMappingURL=exit-system.js.map
