@@ -1,0 +1,22 @@
+CREATE TABLE "public"."User" (
+  id SERIAL PRIMARY KEY NOT NULL,
+  username VARCHAR(255),
+  email VARCHAR(255) UNIQUE NOT NULL
+);
+CREATE TABLE "public"."Movie" (
+  id SERIAL PRIMARY KEY NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+  genre VARCHAR(255) NOT NULL,
+  year INTEGER UNIQUE NOT NULL
+);
+CREATE TABLE "public"."Review" (
+  id SERIAL PRIMARY KEY NOT NULL,
+  text TEXT,
+  rating INTEGER UNIQUE NOT NULL,
+  "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+  "userId" INTEGER UNIQUE NOT NULL,
+  FOREIGN KEY ("userId") REFERENCES "public"."User"(id),
+  "movieId" INTEGER UNIQUE NOT NULL,
+  FOREIGN KEY ("movieId") REFERENCES "public"."Movie"(id)
+);

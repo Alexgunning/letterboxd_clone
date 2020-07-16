@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nexus dev",
+    "build": "nexus build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.0.23",
+    "nexus": "^0.25.0",
+    "nexus-plugin-prisma": "^0.16.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  }
+}
