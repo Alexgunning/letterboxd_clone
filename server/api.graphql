@@ -56,6 +56,18 @@ input MovieCreateInput {
   year: Int!
 }
 
+input MovieCreateOneWithoutReviewInput {
+  connect: MovieWhereUniqueInput
+  create: MovieCreateWithoutReviewInput
+}
+
+input MovieCreateWithoutReviewInput {
+  createdAt: DateTime
+  genre: String!
+  title: String!
+  year: Int!
+}
+
 input MovieUpdateInput {
   createdAt: DateTime
   genre: String
@@ -71,6 +83,26 @@ input MovieUpdateManyMutationInput {
   id: Int
   title: String
   year: Int
+}
+
+input MovieUpdateOneRequiredWithoutReviewInput {
+  connect: MovieWhereUniqueInput
+  create: MovieCreateWithoutReviewInput
+  update: MovieUpdateWithoutReviewDataInput
+  upsert: MovieUpsertWithoutReviewInput
+}
+
+input MovieUpdateWithoutReviewDataInput {
+  createdAt: DateTime
+  genre: String
+  id: Int
+  title: String
+  year: Int
+}
+
+input MovieUpsertWithoutReviewInput {
+  create: MovieCreateWithoutReviewInput!
+  update: MovieUpdateWithoutReviewDataInput!
 }
 
 input MovieWhereInput {
@@ -91,13 +123,22 @@ input MovieWhereUniqueInput {
 }
 
 type Mutation {
-  createMovie: Movie!
   createOneMovie(data: MovieCreateInput!): Movie!
+  createOneReview(data: ReviewCreateInput!): Review!
+  createOneUser(data: UserCreateInput!): User!
   deleteAllMovies: String
   deleteManyMovie(where: MovieWhereInput): BatchPayload!
+  deleteManyReview(where: ReviewWhereInput): BatchPayload!
+  deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneMovie(where: MovieWhereUniqueInput!): Movie
+  deleteOneReview(where: ReviewWhereUniqueInput!): Review
+  deleteOneUser(where: UserWhereUniqueInput!): User
   updateManyMovie(data: MovieUpdateManyMutationInput!, where: MovieWhereInput): BatchPayload!
+  updateManyReview(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateOneMovie(data: MovieUpdateInput!, where: MovieWhereUniqueInput!): Movie
+  updateOneReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
 }
 
 input NullableStringFilter {
@@ -116,9 +157,28 @@ input NullableStringFilter {
 
 type Query {
   allMovies: [Movie!]
-  drafts: [Movie!]
   movie(where: MovieWhereUniqueInput!): Movie
   movies(after: MovieWhereUniqueInput, before: MovieWhereUniqueInput, first: Int, last: Int): [Movie!]!
+  review(where: ReviewWhereUniqueInput!): Review
+  reviews(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
+  user(where: UserWhereUniqueInput!): User
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+type Review {
+  id: Int!
+  movieId: Int!
+  rating: Int!
+  text: String
+  userId: Int!
+}
+
+input ReviewCreateInput {
+  createdAt: DateTime
+  Movie: MovieCreateOneWithoutReviewInput!
+  rating: Int!
+  text: String
+  User: UserCreateOneWithoutReviewInput!
 }
 
 input ReviewCreateOneWithoutMovieInput {
@@ -126,11 +186,39 @@ input ReviewCreateOneWithoutMovieInput {
   create: ReviewCreateWithoutMovieInput
 }
 
+input ReviewCreateOneWithoutUserInput {
+  connect: ReviewWhereUniqueInput
+  create: ReviewCreateWithoutUserInput
+}
+
 input ReviewCreateWithoutMovieInput {
   createdAt: DateTime
   rating: Int!
   text: String
   User: UserCreateOneWithoutReviewInput!
+}
+
+input ReviewCreateWithoutUserInput {
+  createdAt: DateTime
+  Movie: MovieCreateOneWithoutReviewInput!
+  rating: Int!
+  text: String
+}
+
+input ReviewUpdateInput {
+  createdAt: DateTime
+  id: Int
+  Movie: MovieUpdateOneRequiredWithoutReviewInput
+  rating: Int
+  text: String
+  User: UserUpdateOneRequiredWithoutReviewInput
+}
+
+input ReviewUpdateManyMutationInput {
+  createdAt: DateTime
+  id: Int
+  rating: Int
+  text: String
 }
 
 input ReviewUpdateOneWithoutMovieInput {
@@ -142,6 +230,15 @@ input ReviewUpdateOneWithoutMovieInput {
   upsert: ReviewUpsertWithoutMovieInput
 }
 
+input ReviewUpdateOneWithoutUserInput {
+  connect: ReviewWhereUniqueInput
+  create: ReviewCreateWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ReviewUpdateWithoutUserDataInput
+  upsert: ReviewUpsertWithoutUserInput
+}
+
 input ReviewUpdateWithoutMovieDataInput {
   createdAt: DateTime
   id: Int
@@ -150,9 +247,22 @@ input ReviewUpdateWithoutMovieDataInput {
   User: UserUpdateOneRequiredWithoutReviewInput
 }
 
+input ReviewUpdateWithoutUserDataInput {
+  createdAt: DateTime
+  id: Int
+  Movie: MovieUpdateOneRequiredWithoutReviewInput
+  rating: Int
+  text: String
+}
+
 input ReviewUpsertWithoutMovieInput {
   create: ReviewCreateWithoutMovieInput!
   update: ReviewUpdateWithoutMovieDataInput!
+}
+
+input ReviewUpsertWithoutUserInput {
+  create: ReviewCreateWithoutUserInput!
+  update: ReviewUpdateWithoutUserDataInput!
 }
 
 input ReviewWhereInput {
@@ -190,6 +300,18 @@ input StringFilter {
   startsWith: String
 }
 
+type User {
+  email: String!
+  id: Int!
+  username: String
+}
+
+input UserCreateInput {
+  email: String!
+  Review: ReviewCreateOneWithoutUserInput
+  username: String
+}
+
 input UserCreateOneWithoutReviewInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutReviewInput
@@ -197,6 +319,19 @@ input UserCreateOneWithoutReviewInput {
 
 input UserCreateWithoutReviewInput {
   email: String!
+  username: String
+}
+
+input UserUpdateInput {
+  email: String
+  id: Int
+  Review: ReviewUpdateOneWithoutUserInput
+  username: String
+}
+
+input UserUpdateManyMutationInput {
+  email: String
+  id: Int
   username: String
 }
 
