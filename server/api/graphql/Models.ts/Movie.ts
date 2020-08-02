@@ -8,5 +8,6 @@ schema.objectType({
     t.model.genre()
     t.model.year()
     t.model.createdAt()
+    t.model.Reviews()
   },
 })

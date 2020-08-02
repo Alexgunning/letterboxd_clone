@@ -13,7 +13,7 @@ model Movie {
   id        Int      @default(autoincrement()) @id
   title     String
   year      Int      @unique
-  Review    Review?
+  Reviews    Review[]
 }
 
 model Review {
@@ -31,5 +31,5 @@ model User {
   email    String  @unique
   id       Int     @default(autoincrement()) @id
   username String?
-  Review   Review?
+  Review   Review[]
 }

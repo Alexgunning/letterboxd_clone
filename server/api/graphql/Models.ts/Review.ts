@@ -6,7 +6,7 @@ schema.objectType({
     t.model.id()           // <- Field named `id` of type `Int`
     t.model.rating()
     t.model.text()
-    t.model.movieId()
-    t.model.userId()
+    t.model.Movie()
+    t.model.User()
   },
 })

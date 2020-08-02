@@ -5,7 +5,8 @@ schema.objectType({
   definition(t) {
     t.model.id()           // <- Field named `id` of type `Int`
     t.model.username()
-    t.model.email()
+    t.model.email(),
+    t.model.Review()
   },
 })
 
