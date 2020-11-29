@@ -3,7 +3,6 @@ import './index.css';
 import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
 import {
-    BrowserRouter as Router,
     useLocation
   } from "react-router-dom";
 
@@ -20,7 +19,7 @@ const MOVIES = gql`
 
 function Movie() {
     let location = useLocation();
-    let urlTitle = location.pathname.replace('/movie/', '').slice(0, -1);
+    let urlTitle = location.pathname.replace('/movie/', '').replace(/\/$/, '');
 
     const { loading, error, data } = useQuery(MOVIES, { variables: { urlTitle } });
     if (loading) return <p>Loading...</p>;
