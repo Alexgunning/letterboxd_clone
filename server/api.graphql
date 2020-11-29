@@ -45,25 +45,26 @@ type Movie {
   genre: String!
   id: Int!
   rating: Float
-  Reviews(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
+  Review(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
   title: String!
+  url: String
   year: Int!
 }
 
 input MovieCreateInput {
   createdAt: DateTime
   genre: String!
-  Reviews: ReviewCreateManyWithoutMovieInput
+  Review: ReviewCreateManyWithoutMovieInput
   title: String!
   year: Int!
 }
 
-input MovieCreateOneWithoutReviewsInput {
+input MovieCreateOneWithoutReviewInput {
   connect: MovieWhereUniqueInput
-  create: MovieCreateWithoutReviewsInput
+  create: MovieCreateWithoutReviewInput
 }
 
-input MovieCreateWithoutReviewsInput {
+input MovieCreateWithoutReviewInput {
   createdAt: DateTime
   genre: String!
   title: String!
@@ -82,7 +83,7 @@ input MovieUpdateInput {
   createdAt: DateTime
   genre: String
   id: Int
-  Reviews: ReviewUpdateManyWithoutMovieInput
+  Review: ReviewUpdateManyWithoutMovieInput
   title: String
   year: Int
 }
@@ -95,14 +96,14 @@ input MovieUpdateManyMutationInput {
   year: Int
 }
 
-input MovieUpdateOneRequiredWithoutReviewsInput {
+input MovieUpdateOneRequiredWithoutReviewInput {
   connect: MovieWhereUniqueInput
-  create: MovieCreateWithoutReviewsInput
-  update: MovieUpdateWithoutReviewsDataInput
-  upsert: MovieUpsertWithoutReviewsInput
+  create: MovieCreateWithoutReviewInput
+  update: MovieUpdateWithoutReviewDataInput
+  upsert: MovieUpsertWithoutReviewInput
 }
 
-input MovieUpdateWithoutReviewsDataInput {
+input MovieUpdateWithoutReviewDataInput {
   createdAt: DateTime
   genre: String
   id: Int
@@ -110,9 +111,9 @@ input MovieUpdateWithoutReviewsDataInput {
   year: Int
 }
 
-input MovieUpsertWithoutReviewsInput {
-  create: MovieCreateWithoutReviewsInput!
-  update: MovieUpdateWithoutReviewsDataInput!
+input MovieUpsertWithoutReviewInput {
+  create: MovieCreateWithoutReviewInput!
+  update: MovieUpdateWithoutReviewDataInput!
 }
 
 input MovieWhereInput {
@@ -122,7 +123,7 @@ input MovieWhereInput {
   id: IntFilter
   NOT: [MovieWhereInput!]
   OR: [MovieWhereInput!]
-  Reviews: ReviewFilter
+  Review: ReviewFilter
   title: StringFilter
   year: IntFilter
 }
@@ -189,7 +190,7 @@ type Review {
 
 input ReviewCreateInput {
   createdAt: DateTime
-  Movie: MovieCreateOneWithoutReviewsInput!
+  Movie: MovieCreateOneWithoutReviewInput!
   rating: Int!
   text: String
   User: UserCreateOneWithoutReviewInput!
@@ -214,7 +215,7 @@ input ReviewCreateWithoutMovieInput {
 
 input ReviewCreateWithoutUserInput {
   createdAt: DateTime
-  Movie: MovieCreateOneWithoutReviewsInput!
+  Movie: MovieCreateOneWithoutReviewInput!
   rating: Int!
   text: String
 }
@@ -240,7 +241,7 @@ input ReviewScalarWhereInput {
 input ReviewUpdateInput {
   createdAt: DateTime
   id: Int
-  Movie: MovieUpdateOneRequiredWithoutReviewsInput
+  Movie: MovieUpdateOneRequiredWithoutReviewInput
   rating: Int
   text: String
   User: UserUpdateOneRequiredWithoutReviewInput
@@ -300,7 +301,7 @@ input ReviewUpdateWithoutMovieDataInput {
 input ReviewUpdateWithoutUserDataInput {
   createdAt: DateTime
   id: Int
-  Movie: MovieUpdateOneRequiredWithoutReviewsInput
+  Movie: MovieUpdateOneRequiredWithoutReviewInput
   rating: Int
   text: String
 }

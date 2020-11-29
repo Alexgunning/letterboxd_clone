@@ -1,0 +1,29 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Movie",
+      "field": "url",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Movie",
+      "field": "Review",
+      "type": "Review",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Movie",
+      "field": "Reviews"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Movie",
+      "field": "rating"
+    }
+  ]
+}

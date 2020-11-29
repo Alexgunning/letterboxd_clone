@@ -8,6 +8,7 @@ CREATE TABLE "public"."Movie" (
   title VARCHAR(255) NOT NULL,
   "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
   genre VARCHAR(255) NOT NULL,
+  url VARCHAR(255) NOT NULL,
   year INTEGER UNIQUE NOT NULL
 );
 CREATE TABLE "public"."Review" (

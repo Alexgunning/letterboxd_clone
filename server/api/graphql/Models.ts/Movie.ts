@@ -9,7 +9,12 @@ schema.objectType({
     t.model.genre()
     t.model.year()
     t.model.createdAt()
-    t.model.Reviews()
+    t.model.Review()
+    t.string('url', { 
+      async resolve(_parent, _args, ctx) {
+        return _parent.title.toLocaleLowerCase().replace(/ /g, '_')+'_'+_parent.year.toString();
+      }
+    })
     t.float('rating', {
       async resolve(_parent, _args, ctx) {
         const reviews = await ctx.db.review.findMany({where: {movieId: _parent.id} })
