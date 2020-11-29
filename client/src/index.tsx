@@ -13,7 +13,7 @@ const client = new ApolloClient({
 
 const MOVIES = gql`
       query GetMovies {
-        movies {
+        allMovies {
           id
           title,
           year
@@ -26,11 +26,9 @@ const MOVIES = gql`
   
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
-    console.log('alex');
-    console.log(data.movies);
   
     // return data.movies.map(({ id: Number, title: String, year: Number }) => (
-    return data.movies.map((obj:any) => (
+    return data.allMovies.map((obj:any) => (
       <div key={obj.id}>
         <p>
           {obj.title}: {obj.year}

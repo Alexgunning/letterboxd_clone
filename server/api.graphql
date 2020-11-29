@@ -44,6 +44,7 @@ type Movie {
   createdAt: DateTime!
   genre: String!
   id: Int!
+  rating: Float
   Reviews(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
   title: String!
   year: Int!
@@ -67,6 +68,14 @@ input MovieCreateWithoutReviewsInput {
   genre: String!
   title: String!
   year: Int!
+}
+
+input MovieOrderByInput {
+  createdAt: OrderByArg
+  genre: OrderByArg
+  id: OrderByArg
+  title: OrderByArg
+  year: OrderByArg
 }
 
 input MovieUpdateInput {
@@ -120,7 +129,6 @@ input MovieWhereInput {
 
 input MovieWhereUniqueInput {
   id: Int
-  year: Int
 }
 
 type Mutation {
@@ -156,10 +164,15 @@ input NullableStringFilter {
   startsWith: String
 }
 
+enum OrderByArg {
+  asc
+  desc
+}
+
 type Query {
   allMovies: [Movie!]
   movie(where: MovieWhereUniqueInput!): Movie
-  movies(after: MovieWhereUniqueInput, before: MovieWhereUniqueInput, first: Int, last: Int): [Movie!]!
+  movies(after: MovieWhereUniqueInput, before: MovieWhereUniqueInput, first: Int, last: Int, orderBy: MovieOrderByInput, where: MovieWhereInput): [Movie!]!
   review(where: ReviewWhereUniqueInput!): Review
   reviews(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
   user(where: UserWhereUniqueInput!): User
@@ -330,9 +343,6 @@ input ReviewWhereInput {
 
 input ReviewWhereUniqueInput {
   id: Int
-  movieId: Int
-  rating: Int
-  userId: Int
 }
 
 input StringFilter {

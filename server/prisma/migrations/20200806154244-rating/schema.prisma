@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model Movie {
@@ -13,6 +13,7 @@ model Movie {
   id        Int      @default(autoincrement()) @id
   title     String
   year      Int      
+  rating    Float
   Reviews    Review[]
 }
 
