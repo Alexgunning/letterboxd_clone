@@ -1,54 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { ApolloClient, ApolloProvider, InMemoryCache, useQuery } from '@apollo/client';
-import { gql } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import MovieList from './MovieList';
+import Movie from './Movie';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache()
 });
 
-const MOVIES = gql`
-      query GetMovies {
-        allMovies {
-          id
-          title,
-          year
-        }
-      }
-`;
-
-  function Movies() {
-    const { loading, error, data } = useQuery(MOVIES);
-  
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-  
-    // return data.movies.map(({ id: Number, title: String, year: Number }) => (
-    return data.allMovies.map((obj:any) => (
-      <div key={obj.id}>
-        <p>
-          {obj.title}: {obj.year}
-        </p>
-      </div>
-    ));
-  }
-
-  function App() {
-    return (
-      <ApolloProvider client={client}>
-        <div>
-          <Movies />
-        </div>
-      </ApolloProvider>
-    );
-  }
+function App() {
+  return (
+    <main>
+      <Switch>
+        <ApolloProvider client={client}>
+          <div>
+            <Route path="/" component={MovieList} exact />
+            <Route path="/movie" component={Movie} />
+          </div>
+        </ApolloProvider>
+      </Switch>
+    </main>
+  );
+}
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -12,6 +12,7 @@ model Movie {
   genre     String
   id        Int      @default(autoincrement()) @id
   title     String
+  url       String
   year      Int
   Review    Review[]
 }

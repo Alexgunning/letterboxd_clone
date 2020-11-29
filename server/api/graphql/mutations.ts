@@ -26,6 +26,24 @@ schema.mutationType({
           return review;
         },
       });
+
+      t.field("createMovie", {
+        type: "Movie",
+        args: {
+          title: stringArg({required: true}),
+          year: intArg({required: true}),
+          genre: stringArg({required: true}),
+        },
+        async resolve(_parent, _args, ctx) {
+          let url = _args.title.toLocaleLowerCase().replace(/ /g, '_')+'_'+_args.year.toString();
+          let movie = await ctx.db.movie.create({
+            data: {
+              title: _args.title, year: _args.year, genre: _args.genre, url: url
+                         }
+          });
+          return movie;
+        },
+      });
     t.crud.createOneMovie();
     t.crud.deleteOneMovie();
     t.crud.deleteManyMovie();

@@ -47,7 +47,7 @@ type Movie {
   rating: Float
   Review(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
   title: String!
-  url: String
+  url: String!
   year: Int!
 }
 
@@ -56,6 +56,7 @@ input MovieCreateInput {
   genre: String!
   Review: ReviewCreateManyWithoutMovieInput
   title: String!
+  url: String!
   year: Int!
 }
 
@@ -68,6 +69,7 @@ input MovieCreateWithoutReviewInput {
   createdAt: DateTime
   genre: String!
   title: String!
+  url: String!
   year: Int!
 }
 
@@ -76,6 +78,7 @@ input MovieOrderByInput {
   genre: OrderByArg
   id: OrderByArg
   title: OrderByArg
+  url: OrderByArg
   year: OrderByArg
 }
 
@@ -85,6 +88,7 @@ input MovieUpdateInput {
   id: Int
   Review: ReviewUpdateManyWithoutMovieInput
   title: String
+  url: String
   year: Int
 }
 
@@ -93,6 +97,7 @@ input MovieUpdateManyMutationInput {
   genre: String
   id: Int
   title: String
+  url: String
   year: Int
 }
 
@@ -108,6 +113,7 @@ input MovieUpdateWithoutReviewDataInput {
   genre: String
   id: Int
   title: String
+  url: String
   year: Int
 }
 
@@ -125,6 +131,7 @@ input MovieWhereInput {
   OR: [MovieWhereInput!]
   Review: ReviewFilter
   title: StringFilter
+  url: StringFilter
   year: IntFilter
 }
 
@@ -133,6 +140,7 @@ input MovieWhereUniqueInput {
 }
 
 type Mutation {
+  createMovie(genre: String!, title: String!, year: Int!): Movie
   createOneMovie(data: MovieCreateInput!): Movie!
   createOneReview(data: ReviewCreateInput!): Review!
   createOneUser(data: UserCreateInput!): User!
