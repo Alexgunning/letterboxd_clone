@@ -11,6 +11,8 @@ model Movie {
   createdAt DateTime @default(now())
   genre     String
   id        Int      @default(autoincrement()) @id
+  image_url String?
+  summary   String?
   title     String
   url       String
   year      Int

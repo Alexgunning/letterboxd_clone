@@ -11,6 +11,8 @@ schema.objectType({
     t.model.createdAt()
     t.model.Review()
     t.model.url()
+    t.model.image_url()
+    t.model.summary()
     // t.string('url', { 
     //   async resolve(_parent, _args, ctx) {
     //     return _parent.title.toLocaleLowerCase().replace(/ /g, 'z')+'_'+_parent.year.toString();

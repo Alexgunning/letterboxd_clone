@@ -2,17 +2,37 @@ import React from 'react';
 import './index.css';
 import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
-import {
-    useLocation
-  } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Container, Card, Icon } from 'semantic-ui-react'
+import { format } from 'path';
+
+
+function formatRating(value: number): string {
+    let valStr = value.toPrecision(3)
+    return valStr;
+}
+
+const extra = (rating: string) => {
+    return (
+        <a>
+            <Icon name='star' />
+            {rating}
+        </a>
+
+    )
+}
+
 
 const MOVIES = gql`
     query movie($urlTitle: String!) {
         movies(where: {url: {equals: $urlTitle}}) {
-        id
+        id,
         title,
         year,
-        genre
+        genre,
+        rating,
+        image_url,
+        summary
         }
     }
     `;
@@ -27,10 +47,18 @@ function Movie() {
 
     if (data.movies.length === 0) return <p>'error movie not found'</p>
     let movie = data.movies[0];
-    return (
-        <p>
-            {movie.title}: {movie.year}  {movie.genre}
-        </p>
+    // image='/images/avatar/large/elliot.jpg'
+    return (<div>
+        <Container style={{ margin: 20 }}>
+            <Card
+                image={movie.image_url}
+                header={movie.title}
+                meta={movie.year}
+                // description={movie.summary.length > 200 ? movie.summary.slice(0,200)}
+                extra={extra(movie.rating.toPrecision(2))}
+            />
+        </Container>
+    </div>
     );
 }
 

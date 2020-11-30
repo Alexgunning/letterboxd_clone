@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import MovieList from './MovieList';
 import Movie from './Movie';
+import MovieCard from './MovieCard';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const client = new ApolloClient({
@@ -18,7 +19,7 @@ function App() {
       <Switch>
         <ApolloProvider client={client}>
           <div>
-            <Route path="/" component={MovieList} exact />
+            <Route path="/" component={MovieCard} exact />
             <Route path="/movie" component={Movie} />
           </div>
         </ApolloProvider>
@@ -26,6 +27,12 @@ function App() {
     </main>
   );
 }
+
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+document.head.appendChild(styleLink);
+
 
 
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));

@@ -44,8 +44,10 @@ type Movie {
   createdAt: DateTime!
   genre: String!
   id: Int!
+  image_url: String
   rating: Float
   Review(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
+  summary: String
   title: String!
   url: String!
   year: Int!
@@ -54,7 +56,9 @@ type Movie {
 input MovieCreateInput {
   createdAt: DateTime
   genre: String!
+  image_url: String
   Review: ReviewCreateManyWithoutMovieInput
+  summary: String
   title: String!
   url: String!
   year: Int!
@@ -68,6 +72,8 @@ input MovieCreateOneWithoutReviewInput {
 input MovieCreateWithoutReviewInput {
   createdAt: DateTime
   genre: String!
+  image_url: String
+  summary: String
   title: String!
   url: String!
   year: Int!
@@ -77,6 +83,8 @@ input MovieOrderByInput {
   createdAt: OrderByArg
   genre: OrderByArg
   id: OrderByArg
+  image_url: OrderByArg
+  summary: OrderByArg
   title: OrderByArg
   url: OrderByArg
   year: OrderByArg
@@ -86,7 +94,9 @@ input MovieUpdateInput {
   createdAt: DateTime
   genre: String
   id: Int
+  image_url: String
   Review: ReviewUpdateManyWithoutMovieInput
+  summary: String
   title: String
   url: String
   year: Int
@@ -96,6 +106,8 @@ input MovieUpdateManyMutationInput {
   createdAt: DateTime
   genre: String
   id: Int
+  image_url: String
+  summary: String
   title: String
   url: String
   year: Int
@@ -112,6 +124,8 @@ input MovieUpdateWithoutReviewDataInput {
   createdAt: DateTime
   genre: String
   id: Int
+  image_url: String
+  summary: String
   title: String
   url: String
   year: Int
@@ -127,9 +141,11 @@ input MovieWhereInput {
   createdAt: DateTimeFilter
   genre: StringFilter
   id: IntFilter
+  image_url: NullableStringFilter
   NOT: [MovieWhereInput!]
   OR: [MovieWhereInput!]
   Review: ReviewFilter
+  summary: NullableStringFilter
   title: StringFilter
   url: StringFilter
   year: IntFilter
@@ -140,7 +156,7 @@ input MovieWhereUniqueInput {
 }
 
 type Mutation {
-  createMovie(genre: String!, title: String!, year: Int!): Movie
+  createMovie(genre: String!, image_url: String!, summary: String!, title: String!, year: Int!): Movie
   createOneMovie(data: MovieCreateInput!): Movie!
   createOneReview(data: ReviewCreateInput!): Review!
   createOneUser(data: UserCreateInput!): User!

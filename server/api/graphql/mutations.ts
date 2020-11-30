@@ -33,12 +33,14 @@ schema.mutationType({
           title: stringArg({required: true}),
           year: intArg({required: true}),
           genre: stringArg({required: true}),
+          summary: stringArg({required: true}),
+          image_url: stringArg({required: true})
         },
         async resolve(_parent, _args, ctx) {
           let url = _args.title.toLocaleLowerCase().replace(/ /g, '_')+'_'+_args.year.toString();
           let movie = await ctx.db.movie.create({
             data: {
-              title: _args.title, year: _args.year, genre: _args.genre, url: url
+              title: _args.title, year: _args.year, genre: _args.genre, url: url, summary: _args.summary, image_url: _args.image_url
                          }
           });
           return movie;
