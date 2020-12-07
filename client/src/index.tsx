@@ -18,6 +18,7 @@ function App() {
       <Switch>
         <ApolloProvider client={client}>
           <div>
+          <h1 style={{textAlign: "center"}}>Letterbox Me </h1>
             <Route path="/" component={MovieCard} exact />
             <Route path="/movie" component={Movie} />
           </div>

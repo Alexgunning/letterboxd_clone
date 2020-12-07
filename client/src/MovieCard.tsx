@@ -46,7 +46,7 @@ function Movie() {
 
     if (data.allMovies.length === 0) return <p>'error movie not found'</p>
     return (<div>
-        <h1 style={{textAlign: "center"}}>Letterbox Me </h1>
+        
         <Container style={{ margin: 10 }}>
             <CardGroup >
                 {data.allMovies.map((movie: any) => {
