@@ -46,24 +46,21 @@ function Movie() {
 
     if (data.allMovies.length === 0) return <p>'error movie not found'</p>
     return (<div>
+        <h1 style={{textAlign: "center"}}>Letterbox Me </h1>
         <Container style={{ margin: 10 }}>
-            <CardGroup centered={true}>
+            <CardGroup >
                 {data.allMovies.map((movie: any) => {
                     return (
                         <div>
-                        <Container style={{ width: 200, padding: 5 }}>
+                        <Container style={{ width: 200, padding: 10 }}>
                             <Link to={`/movie/${movie.url}`}>
                                 <Card>
-                                    <Image src={movie.image_url}  fluid={false} centered={true} size='massive'/>
+                                    <Image style={{ height: 250}} src={movie.image_url}  fluid={false} centered={true} size='massive'/>
                                     <Card.Content>
                                         <Card.Header>{movie.title}</Card.Header>
                                         <Card.Meta>
                                             {movie.year}
                                         </Card.Meta>
-                                        <Card.Description>
-                                     {/* {movie.summary.length > 120 ? movie.summary.slice(0, 120) + '...' : movie.summary} */}
-                                     {movie.genre}
-      </Card.Description>
                                     </Card.Content>
                                     <Card.Content extra>
                                      {extra(movie.rating.toPrecision(2))}

@@ -14,7 +14,7 @@ model Movie {
   image_url String?
   summary   String?
   title     String
-  url       String
+  url       String?
   year      Int
   Review    Review[]
 }

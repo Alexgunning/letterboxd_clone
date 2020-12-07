@@ -54,9 +54,10 @@ function Movie() {
                 image={movie.image_url}
                 header={movie.title}
                 meta={movie.year}
-                // description={movie.summary.length > 200 ? movie.summary.slice(0,200)}
+                description={movie.summary}
                 extra={extra(movie.rating.toPrecision(2))}
             />
+            
         </Container>
     </div>
     );

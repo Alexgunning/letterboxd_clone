@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import MovieList from './MovieList';
 import Movie from './Movie';
 import MovieCard from './MovieCard';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
