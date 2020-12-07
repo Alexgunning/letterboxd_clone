@@ -24,6 +24,6 @@ schema.queryType({
       t.crud.user();
       t.crud.users();
       t.crud.review();
-      t.crud.reviews();
+      t.crud.reviews({ordering: true, filtering: true});
     },
   });

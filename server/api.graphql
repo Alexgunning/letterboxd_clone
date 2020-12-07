@@ -199,7 +199,7 @@ type Query {
   movie(where: MovieWhereUniqueInput!): Movie
   movies(after: MovieWhereUniqueInput, before: MovieWhereUniqueInput, first: Int, last: Int, orderBy: MovieOrderByInput, where: MovieWhereInput): [Movie!]!
   review(where: ReviewWhereUniqueInput!): Review
-  reviews(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int): [Review!]!
+  reviews(after: ReviewWhereUniqueInput, before: ReviewWhereUniqueInput, first: Int, last: Int, orderBy: ReviewOrderByInput, where: ReviewWhereInput): [Review!]!
   user(where: UserWhereUniqueInput!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
 }
@@ -248,6 +248,15 @@ input ReviewFilter {
   every: ReviewWhereInput
   none: ReviewWhereInput
   some: ReviewWhereInput
+}
+
+input ReviewOrderByInput {
+  createdAt: OrderByArg
+  id: OrderByArg
+  movieId: OrderByArg
+  rating: OrderByArg
+  text: OrderByArg
+  userId: OrderByArg
 }
 
 input ReviewScalarWhereInput {

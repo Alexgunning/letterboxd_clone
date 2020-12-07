@@ -1,38 +1,60 @@
 import React from 'react'
-import { Image, Item } from 'semantic-ui-react'
+import { gql, useQuery } from '@apollo/client';
+import { Container, Image, Item, Icon } from 'semantic-ui-react'
+import { useLocation } from "react-router-dom";
 
 const paragraph = <Image src='/images/wireframe/short-paragraph.png' />
 
-const ItemExampleMetadata = () => (
+const REVEIWS = gql`
+query reviewByMovie($urlTitle: String!) {
+  reviews(where: {Movie: { url:{equals: $urlTitle}}}) {
+    id,
+    User{
+      email
+      username
+    }
+    rating,
+    text
+  }
+}
+`;
+
+const ItemExampleMetadata = () => {
+  let location = useLocation();
+  let urlTitle = location.pathname.replace('/movie/', '').replace(/\/$/, '');
+
+  const { loading, error, data } = useQuery(REVEIWS, { variables: { urlTitle } });
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
+    if (data.reviews.length === 0) return <p>No reviews yet!</p>
+    console.log(data.reviews)
+    let review = data.reviews[0];
+
+  return (
+    <Container style={{ margin: 10 }}>
   <Item.Group>
-    <Item>
-      <Item.Image size='tiny' src='https://www.dc.edu/wp-content/uploads/2014/03/person-icon.png' />
-      <Item.Content>
-        <Item.Header>Arrowhead Valley Camp</Item.Header>
-        <Item.Meta>
-          <span className='price'>$1200</span>
-          <span className='stay'>1 Month</span>
-        </Item.Meta>
-        <Item.Description>{paragraph}</Item.Description>
-      </Item.Content>
-    </Item>
+    {data.reviews.map((review: any) => {
+      return (
+        <Item>
+          <Item.Image size='tiny' src='https://www.dc.edu/wp-content/uploads/2014/03/person-icon.png' />
+          <Item.Content>
+            <Item.Header>{review.User.username}</Item.Header>
+            <Item.Meta>
+              <a>
+                <Icon name='star' />
+                {review.rating}
+              </a>
 
-    <Item>
-      <Item.Image size='tiny' src='/images/wireframe/image.png' />
-
-      <Item.Content>
-        <Item.Header>Buck's Homebrew Stayaway</Item.Header>
-        <Item.Meta content='$1000 2 Weeks' />
-        <Item.Description>{paragraph}</Item.Description>
-      </Item.Content>
-    </Item>
-
-    <Item>
-      <Item.Image size='tiny' src='/images/wireframe/image.png' />
-      <Item.Content header='Arrowhead Valley Camp' meta='$1200 1 Month' />
-    </Item>
-  </Item.Group>
-)
+            </Item.Meta>
+            <Item.Description>{review.text}</Item.Description>
+          </Item.Content>
+        </Item>)
+    })}
+      </Item.Group>
+    </Container>
+  )
+}
 
 export default ItemExampleMetadata
 

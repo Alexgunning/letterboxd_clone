@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import Movie from './Movie';
-import MovieCard from './MovieCard';
+import MovieList from './MovieList';
+import MovieDetailView from './MovieDetailView'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const client = new ApolloClient({
@@ -19,8 +19,8 @@ function App() {
         <ApolloProvider client={client}>
           <div>
           <h1 style={{textAlign: "center"}}>Letterbox Me </h1>
-            <Route path="/" component={MovieCard} exact />
-            <Route path="/movie" component={Movie} />
+            <Route path="/" component={MovieList} exact />
+            <Route path="/movie" component={MovieDetailView} />
           </div>
         </ApolloProvider>
       </Switch>
