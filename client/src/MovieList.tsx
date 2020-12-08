@@ -46,13 +46,13 @@ function Movie() {
     return (<div>
         
         <Container style={{ margin: 10 }}>
-            <CardGroup >
+            <CardGroup  >
                 {data.allMovies.map((movie: any) => {
                     return (
-                        <div>
-                        <Container style={{ width: 200, }}>
+                        <div style={{margin:10}}>
+                        <Container style={{ width: 220  }}>
                             <Link to={`/movie/${movie.url}`}>
-                                <Card>
+                                <Card style={{margin:0}}>
                                     <Image style={{ height: 250}} src={movie.image_url}  fluid={false} centered={true} size='massive'/>
                                     <Card.Content>
                                         <Card.Header>{movie.title}</Card.Header>

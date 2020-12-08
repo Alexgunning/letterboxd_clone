@@ -37,7 +37,7 @@ const MOVIES = gql`
     }
     `;
 
-function Movie() {
+const Movie = () => {
     let location = useLocation();
     let urlTitle = location.pathname.replace('/movie/', '').replace(/\/$/, '');
 
@@ -47,7 +47,6 @@ function Movie() {
 
     if (data.movies.length === 0) return <p>'error movie not found'</p>
     let movie = data.movies[0];
-    // image='/images/avatar/large/elliot.jpg'
     return (<div>
         <Container style={{ margin: 20 }}>
             <Card
