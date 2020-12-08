@@ -1,7 +1,8 @@
 import { schema } from 'nexus';
 import {intArg, stringArg} from '@nexus/schema';
 
-schema.mutationType({
+schema.extendType({
+    type: 'Mutation',
     //example
     definition(t) {
       t.field("createReview", {

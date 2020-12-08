@@ -1,7 +1,8 @@
 import { schema } from 'nexus';
 import { sortBy, reverse } from 'lodash';
 
-schema.queryType({
+schema.extendType({
+    type: 'Query',
     definition(t) {
       t.list.field("allMovies", {
         type: "Movie",
