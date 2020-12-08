@@ -50,7 +50,7 @@ function Movie() {
                 {data.allMovies.map((movie: any) => {
                     return (
                         <div>
-                        <Container style={{ width: 200, padding: 10 }}>
+                        <Container style={{ width: 200, }}>
                             <Link to={`/movie/${movie.url}`}>
                                 <Card>
                                     <Image style={{ height: 250}} src={movie.image_url}  fluid={false} centered={true} size='massive'/>
