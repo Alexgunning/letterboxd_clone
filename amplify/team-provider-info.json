@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-letterboxdclone-dev-235130-authRole",
+      "UnauthRoleArn": "arn:aws:iam::254830488648:role/amplify-letterboxdclone-dev-235130-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::254830488648:role/amplify-letterboxdclone-dev-235130-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-letterboxdclone-dev-235130-deployment",
+      "UnauthRoleName": "amplify-letterboxdclone-dev-235130-unauthRole",
+      "StackName": "amplify-letterboxdclone-dev-235130",
+      "StackId": "arn:aws:cloudformation:us-east-2:254830488648:stack/amplify-letterboxdclone-dev-235130/df00fce0-3921-11eb-9673-066b2d98ac3a",
+      "AmplifyAppId": "d1xnsghvjw26ms"
+    },
+    "categories": {
+      "auth": {
+        "letterboxdclone47bc4bb4": {}
+      }
+    }
+  }
+}

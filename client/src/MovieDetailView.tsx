@@ -11,7 +11,6 @@ const MOVIES = gql`
     query movie($urlTitle: String!) {
         movies(where: {url: {equals: $urlTitle}}) {
         id,
-        id,
         title,
         year,
         genre,
@@ -40,6 +39,7 @@ function MovieDetailView(){
         <Movie/>
         </div>
             <div style={{float:"left", marginTop: 10, marginLeft:40, width:"40%"}}><UserReviewInput props={{movieId: movie.id}}/> 
+            {/* <div style={{float:"left", marginTop: 10, marginLeft:40, width:"40%"}}><UserReviewInput/>  */}
             <h2> Other Reviews</h2>
             <ReviewList />
             </div>

@@ -4,13 +4,6 @@ import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
 import { useLocation } from "react-router-dom";
 import { Container, Card, Icon } from 'semantic-ui-react'
-import { format } from 'path';
-
-
-function formatRating(value: number): string {
-    let valStr = value.toPrecision(3)
-    return valStr;
-}
 
 const extra = (rating: string) => {
     return (

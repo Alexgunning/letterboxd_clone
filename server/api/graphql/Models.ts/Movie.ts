@@ -1,6 +1,9 @@
 import { schema } from 'nexus'
 import { resolve } from 'path'
 
+// schema.extendType({
+//   type:"object"
+// })
 schema.objectType({
   name: 'Movie',            // <- Name of your type
   definition(t) {

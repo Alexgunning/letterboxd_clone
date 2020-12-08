@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form, TextArea, Rating, Message } from 'semantic-ui-react'
+import { withAuthenticator } from '@aws-amplify/ui-react'
 import { useLocation } from "react-router-dom";
+import { Auth } from 'aws-amplify';
 
-import { gql, useMutation } from '@apollo/client';
+
+import { gql, useMutation, useQuery } from '@apollo/client';
 
 const ADD_REVIEW = gql`
   mutation createReview($userId: Int!, $movieId: Int!, $text: String!, $rating: Int!) {
@@ -12,16 +15,45 @@ const ADD_REVIEW = gql`
   }
 `;
 
-const UserReviewInput = (movieIdProp: any) => {
+// const MOVIES = gql`
+//     query movie($urlTitle: String!) {
+//         movies(where: {url: {equals: $urlTitle}}) {
+//         id,
+//         }
+//     }
+//     `;
+
+
+const UserReviewInput =  (movieIdProp: any) => {
     let movieId = movieIdProp.props.movieId;
-    const userId = 2;
+    // let location = useLocation();
+    // let urlTitle = location.pathname.replace('/movie/', '').replace(/\/$/, '');
     
+    // const { loading, error, data:queryData } = useQuery(MOVIES, { variables: { urlTitle } });
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error :(</p>;
+
+    // if (queryData.movies.length === 0) return <p>'error movie not found'</p>
+    // let movie = queryData.movies[0];
+    // let movieId = movie.id;
+
     const [rating, setRating] = useState(0);
     const [textField, setTextField] = useState("");
     const [reviewReady, setReviewReady] = useState(false);
     const [reviewSubmitted, setReviewSubmitted] = useState(false);
+    const [userId, setUserId] = useState("");
+    const [userName, setUserName] = useState("");
     const ButtonDisabled = () => <Button disabled>Submit</Button>
     const ButtonActive = () => <Button primary onClick={handleButtonClick}>Submit</Button>
+
+    useEffect(() => {
+        const auth3 = Auth.currentUserInfo().then((x: any)=> {
+            if (x == null)
+                return;
+            setUserId(x.attributes.sub);
+            setUserName(x.username);
+        });
+      });
 
     const handleRate = (e: any, ratingData: any) => {
         setRating(ratingData.rating);
@@ -40,16 +72,13 @@ const UserReviewInput = (movieIdProp: any) => {
     const handleButtonClick = (e: any, textData: any) => {
         e.preventDefault();
         //addTodo({ variables: { type: input.value } });
-        console.log('clicking the button!', rating, textField);
         addReview({variables: {userId: userId, movieId: movieId, rating: rating, text: textField  }});
         setReviewReady(false);
         setReviewSubmitted(true);
      };
 
-    return (
-        <div>
-            <h2>Rate the Movie!</h2>
-            <Form>
+     const InputCode = () => {
+            return (<Form>
                 <TextArea placeholder='Your review of the movie!' onInput={handleTextUpdate} style={{ minHeight: 100 }} />
                 <div style={{ marginTop: 10 }}>
                     <Rating icon='star' maxRating={5} onRate={handleRate} />
@@ -58,9 +87,24 @@ const UserReviewInput = (movieIdProp: any) => {
                     {reviewReady ? ButtonActive() : ButtonDisabled()}
                 </div>
                 <div style={{marginTop:10}}>{reviewSubmitted ? <div><Message icon="check" header="Review Submitted!" /></div> : <div></div>}</div>
-            </Form>
+            </Form> )
+
+     }
+
+     const SignInMessage = () => {
+        return (<Form>
+           <Message icon="sign in" header="Sign In to review Movie!" /> 
+        </Form> )
+
+ }
+
+    return (
+        <div>
+            <h2>Rate the Movie!</h2>
+            {userId != "" ? InputCode() : SignInMessage()}
         </div>
     )
 }
 
+// export default withAuthenticator(UserReviewInput);
 export default UserReviewInput;
